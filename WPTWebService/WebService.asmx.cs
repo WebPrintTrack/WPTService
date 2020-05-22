@@ -44,28 +44,30 @@ namespace WPTWebService
         [WebMethod]
         public string GetOrganisationPrinters(int organisationID)
         {
+            
             DataTable dtPrinters = new DataTable();
-        
-            dtPrinters.Columns.Add("Serijski broj");
-            dtPrinters.Columns.Add("Marka");
-            dtPrinters.Columns.Add("Model");
-            dtPrinters.Columns.Add("Datum prve instalacije");
-            dtPrinters.Columns.Add("Tip tinte");
 
-            dtPrinters.Rows.Add("222334","Videojet","1610","10.04.2010","V410");
-            dtPrinters.Rows.Add("111334", "Videojet", "1620", "10.04.2013", "V410");
-            dtPrinters.Rows.Add("223334", "Videojet", "1220", "10.04.2018", "V411");
-            dtPrinters.Rows.Add("222356", "Videojet", "1210", "10.04.2019", "V411");
+           
+
+            dtPrinters.Columns.Add("IDPrinter");
+            dtPrinters.Columns.Add("SerijskiBroj");
+            dtPrinters.Columns.Add("ModelID");
+            dtPrinters.Columns.Add("KorisnikID");
+            dtPrinters.Columns.Add("TintaID");
+            dtPrinters.Columns.Add("DatumPrveInstalacije");
+            dtPrinters.Columns.Add("ServisniPeriod");
+            dtPrinters.Columns.Add("ServisniPeriodDatumKraja");
+            
+
+
 
             
-            DataSet ds = SqlHelper.ExecuteDataset(cs, "GetOrganisationPrinters", organisationID);
+            DataSet ds = SqlHelper.ExecuteDataset(cs, "ListPrintersForKorisnik", organisationID);
 
-            foreach (DataRow row in ds.Tables[1].Rows)
+            foreach (DataRow row in ds.Tables[0].Rows)
             {
-                txtMarka.Text = row["Tip"].ToString();
-                txtTip.Text = row["Proizvodjac"].ToString();
-                txtGodina.Text = row["Godina"].ToString();
-                txtKS.Text = row["Ks"].ToString();
+                dtPrinters.Rows.Add(row["IDPrinter"].ToString(), row["SerijskiBroj"].ToString(), row["ModelID"].ToString(), row["KorisnikID"].ToString(), row["TintaID"].ToString(), row["DatumPrveInstalacija"].ToString(), row["ServisniPeriod"].ToString(), row["ServisniPeriodDatumKraja"].ToString());
+               
             }
 
 
