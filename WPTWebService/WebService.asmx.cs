@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Services;
 using System.Data;
+using System.Configuration;
 using Newtonsoft.Json;
 
 namespace WPTWebService
@@ -18,6 +19,7 @@ namespace WPTWebService
     // [System.Web.Script.Services.ScriptService]
     public class WebService : System.Web.Services.WebService
     {
+        string cs = ConfigurationManager.ConnectionStrings["cs"].ConnectionString;
 
         [WebMethod]
         public string HelloWorld()
@@ -28,6 +30,7 @@ namespace WPTWebService
         [WebMethod]
         public string SignUp(string username, string password)
         {
+
             return "Username: "+username+"   | Lozinka: "+password;
         }
 
