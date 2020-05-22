@@ -29,20 +29,20 @@ namespace WPTWebService
         }
 
         [WebMethod]
-        public string SignUp(string username, string password)
+        public string Login(string username, string password)
         {
-            string loginResult = SqlHelper.ExecuteScalar(cs, "DohvatiBrojUpisanihAutomobila").ToString(); 
-            return "Username: "+username+"   | Lozinka: "+password;
+            string loginResult = SqlHelper.ExecuteScalar(cs, "sqlLogin", username, password).ToString(); 
+            return loginResult;
         }
 
         [WebMethod]
-        public string Login(string username, string password)
+        public string GetAllPrinters(string username, string password)
         {
             return "Username: " + username + "   | Lozinka: " + password;
         }
 
         [WebMethod]
-        public string GetPrinters(int organisationID)
+        public string GetOrganisationPrinters(int organisationID)
         {
             DataTable dtPrinters = new DataTable();
         
@@ -56,6 +56,17 @@ namespace WPTWebService
             dtPrinters.Rows.Add("111334", "Videojet", "1620", "10.04.2013", "V410");
             dtPrinters.Rows.Add("223334", "Videojet", "1220", "10.04.2018", "V411");
             dtPrinters.Rows.Add("222356", "Videojet", "1210", "10.04.2019", "V411");
+
+            
+            DataSet ds = SqlHelper.ExecuteDataset(cs, "GetOrganisationPrinters", organisationID);
+
+            foreach (DataRow row in ds.Tables[1].Rows)
+            {
+                txtMarka.Text = row["Tip"].ToString();
+                txtTip.Text = row["Proizvodjac"].ToString();
+                txtGodina.Text = row["Godina"].ToString();
+                txtKS.Text = row["Ks"].ToString();
+            }
 
 
             return JsonConvert.SerializeObject(dtPrinters);

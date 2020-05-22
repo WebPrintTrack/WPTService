@@ -81,6 +81,7 @@
     <Content Include="WebService.asmx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Code\Printer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebService.asmx.cs">
       <DependentUpon>WebService.asmx</DependentUpon>
