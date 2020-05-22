@@ -6,6 +6,7 @@ using System.Web.Services;
 using System.Data;
 using System.Configuration;
 using Newtonsoft.Json;
+using Microsoft.ApplicationBlocks.Data;
 
 namespace WPTWebService
 {
@@ -30,7 +31,7 @@ namespace WPTWebService
         [WebMethod]
         public string SignUp(string username, string password)
         {
-
+            string loginResult = SqlHelper.ExecuteScalar(cs, "DohvatiBrojUpisanihAutomobila").ToString(); 
             return "Username: "+username+"   | Lozinka: "+password;
         }
 
